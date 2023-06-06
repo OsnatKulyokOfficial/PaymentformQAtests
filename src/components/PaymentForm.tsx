@@ -50,7 +50,7 @@ const App: React.FC = () => {
 
     return (
         <div className="container">
-            <h2>Payment Form</h2>
+            <h2>Payment </h2>
             <form onSubmit={handleSubmit}>
                 {/* Full Name */}
                 <div className="form-group">
