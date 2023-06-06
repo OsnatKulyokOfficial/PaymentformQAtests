@@ -3,7 +3,7 @@ import logo from './images/logo.jpg';
 import PaymentForm from './components/PaymentForm'
 import './App.css';
 
-const WelcomePage: React.FC = () => {
+const App: React.FC = () => {
 
   return (
     <div className="welcome-page">
@@ -12,4 +12,4 @@ const WelcomePage: React.FC = () => {
     </div>
   );
 };
-export default WelcomePage;
+export default App;
