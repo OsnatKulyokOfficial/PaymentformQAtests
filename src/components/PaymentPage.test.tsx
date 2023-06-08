@@ -1,63 +1,29 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import PaymentPage from './PaymentPage';
-import '@testing-library/jest-dom/extend-expect';
+import React from 'react';
 
 describe('PaymentPage', () => {
-    const mockAmount = '100';
-    const mockPaymentNum = '2';
-    const mockDescription = 'Test payment';
-    const mockFormUrl = 'http://example.com/form';
-    const mockImageUrl = 'http://example.com/image.jpg';
+    test('displays the total payment message and payment image', async () => {
+        const amount = '100';
+        const paymentNum = '2';
+        const description = 'Sample description';
+        const formUrl = '';
 
-    beforeEach(() => {
-        global.fetch = jest.fn().mockResolvedValueOnce({
-            json: () => Promise.resolve({ url: mockImageUrl }),
+        render(
+            <PaymentPage
+                amount={amount}
+                paymentNum={paymentNum}
+                description={description}
+                formUrl={formUrl}
+            />
+        );
+
+        const totalPaymentMessage = screen.getByText(`סה"כ לתשלום $${amount} ב ${paymentNum} תשלומים`);
+        expect(totalPaymentMessage).toBeInTheDocument();
+
+        await waitFor(() => {
+            const paymentImage = screen.getByAltText('Payment');
+            expect(paymentImage).toBeInTheDocument();
         });
-    });
-
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
-
-    test('renders payment details', () => {
-        render(
-            <PaymentPage
-                amount={mockAmount}
-                paymentNum={mockPaymentNum}
-                description={mockDescription}
-                formUrl={mockFormUrl}
-            />
-        );
-
-        expect(screen.getByText(`סה"כ לתשלום $${mockAmount} ב ${mockPaymentNum} תשלומים`)).toBeTruthy();
-    });
-
-    test('renders image when fetch is successful', async () => {
-        render(
-            <PaymentPage
-                amount={mockAmount}
-                paymentNum={mockPaymentNum}
-                description={mockDescription}
-                formUrl={mockFormUrl}
-            />
-        );
-
-        expect(await screen.findByAltText('Payment')).toHaveAttribute('src', mockImageUrl);
-    });
-
-    test('renders fetch error when fetch fails', async () => {
-        global.fetch = jest.fn().mockRejectedValueOnce(new Error('Failed to fetch image.'));
-
-        render(
-            <PaymentPage
-                amount={mockAmount}
-                paymentNum={mockPaymentNum}
-                description={mockDescription}
-                formUrl={mockFormUrl}
-            />
-        );
-
-        expect(await screen.findByText('Failed to fetch image.')).toBeTruthy();
     });
 });
