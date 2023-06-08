@@ -14,8 +14,9 @@ describe('PaymentPage', () => {
                 amount={amount}
                 paymentNum={paymentNum}
                 description={description}
-                formUrl={formUrl}
-            />
+                formUrl={formUrl} onCancel={function (): void {
+                    throw new Error('Function not implemented.');
+                }} />
         );
 
         const totalPaymentMessage = screen.getByText(`סה"כ לתשלום $${amount} ב ${paymentNum} תשלומים`);

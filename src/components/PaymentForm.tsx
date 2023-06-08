@@ -111,7 +111,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
                 </div>
 
                 <button type="submit" className="submit-btn">
-                    Submit
+                    Pay
                 </button>
             </form>
         </div>

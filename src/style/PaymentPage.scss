@@ -11,6 +11,19 @@
     text-align: center;
 }
 
+.cancel-button-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+i {
+    width: 24px;
+    height: 24px;
+}
+
+
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;

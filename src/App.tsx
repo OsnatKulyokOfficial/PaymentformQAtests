@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PaymentForm from './components/PaymentForm';
 import PaymentPage from './components/PaymentPage';
 import logo from './images/logo.jpg';
-import './App.css'
+import './App.css';
 
 const App: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -21,9 +21,13 @@ const App: React.FC = () => {
     setSubmitted(true);
   };
 
+  const handleCancel = () => {
+    setSubmitted(false);
+  };
+
   return (
     <div>
-      <img src={logo} alt="Logo" className='logo' />
+      <img src={logo} alt="Logo" className="logo" />
       {!submitted ? (
         <PaymentForm onSubmit={handlePaymentFormSubmit} />
       ) : (
@@ -34,6 +38,7 @@ const App: React.FC = () => {
             paymentNum={paymentNum}
             description={description}
             formUrl={''}
+            onCancel={handleCancel}
           />
         </>
       )}
