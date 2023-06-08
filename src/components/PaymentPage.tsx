@@ -28,20 +28,23 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ amount, paymentNum, descripti
     }, [amount, paymentNum, description, formUrl]);
 
     return (
-        <div>
-            <h1>Payment Page</h1>
-            {totalPaymentMessage && (
-                <div>
-                    <p>{totalPaymentMessage}</p>
-                    {fetchError ? (
-                        <p>{fetchError}</p>
-                    ) : (
-                        <img src={imageURL} alt="Payment" />
-                    )}
-                </div>
-            )}
+        <div className="container">
+            <div className="payment-page">
+                <h1>Payment Page</h1>
+                {totalPaymentMessage && (
+                    <div>
+                        <p>{totalPaymentMessage}</p>
+                        {fetchError ? (
+                            <p>{fetchError}</p>
+                        ) : (
+                            <img src={imageURL} alt="Payment" />
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
+
 };
 
 export default PaymentPage;
