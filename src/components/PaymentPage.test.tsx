@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PaymentPage from './PaymentPage';
+import '@testing-library/jest-dom/extend-expect';
 
 describe('PaymentPage', () => {
     const mockAmount = '100';
@@ -10,9 +11,9 @@ describe('PaymentPage', () => {
     const mockImageUrl = 'http://example.com/image.jpg';
 
     beforeEach(() => {
-        jest.spyOn(global, 'fetch').mockResolvedValueOnce({
+        global.fetch = jest.fn().mockResolvedValueOnce({
             json: () => Promise.resolve({ url: mockImageUrl }),
-        } as any);
+        });
     });
 
     afterEach(() => {
@@ -29,7 +30,7 @@ describe('PaymentPage', () => {
             />
         );
 
-        expect(screen.getByText(`סה"כ לתשלום $${mockAmount} ב ${mockPaymentNum} תשלומים`)).toBeInTheDocument();
+        expect(screen.getByText(`סה"כ לתשלום $${mockAmount} ב ${mockPaymentNum} תשלומים`)).toBeTruthy();
     });
 
     test('renders image when fetch is successful', async () => {
@@ -46,7 +47,7 @@ describe('PaymentPage', () => {
     });
 
     test('renders fetch error when fetch fails', async () => {
-        jest.spyOn(global, 'fetch').mockRejectedValueOnce(new Error('Failed to fetch image.'));
+        global.fetch = jest.fn().mockRejectedValueOnce(new Error('Failed to fetch image.'));
 
         render(
             <PaymentPage
@@ -57,6 +58,6 @@ describe('PaymentPage', () => {
             />
         );
 
-        expect(await screen.findByText('Failed to fetch image.')).toBeInTheDocument();
+        expect(await screen.findByText('Failed to fetch image.')).toBeTruthy();
     });
 });

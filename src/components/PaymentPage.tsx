@@ -34,11 +34,14 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ amount, paymentNum, descripti
                 {totalPaymentMessage && (
                     <div>
                         <p>{totalPaymentMessage}</p>
+
                         {fetchError ? (
                             <p>{fetchError}</p>
                         ) : (
                             <img src={imageURL} alt="Payment" />
                         )}
+
+
                     </div>
                 )}
             </div>
